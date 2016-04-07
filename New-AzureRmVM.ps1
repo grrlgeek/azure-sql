@@ -4,21 +4,21 @@
 Login-AzureRmAccount
 
 # Choose subscription 
-Select-AzureRmSubscription -SubscriptionId " " | Set-AzureRmContext
+Select-AzureRmSubscription -SubscriptionId "7cee9841-6bfc-43bd-b1c7-dfd99f77aa56" | Set-AzureRmContext
 
 # Resource Group info 
-Get-AzureRmResourceGroup
-$ResourceGroupName = "SQLServers"
+Get-AzureRmResourceGroup | Select ResourceGroupName, Location
+$ResourceGroupName = "Azure20160408"
 $Region = "centralus"
 # Create resource group (if necessary) 
 #New-AzureRmResourceGroup -Name "sqldatabases" -Location "East US" 
 
 # Storage info 
 Get-AzureRmStorageAccount 
-$StorageName = "sqlserversimageposh"
+$StorageName = "azure20160408"
 $StorageType = "Standard_GRS"
 # Create Storage (if necessary) 
-#$StorageAccount = New-AzureRmStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageName -Type $StorageType -Location $Region 
+$StorageAccount = New-AzureRmStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageName -Type $StorageType -Location $Region 
 
 # Network info 
 Get-AzureRmVirtualNetwork 
@@ -34,9 +34,10 @@ $Interface.Id
 # Compute info 
 # What VM size to select? 
 Get-AzureRmVMSize -Location $Region | Select Name
-$VMName = "ImageVM" #This is what will appear in the portal 
-$ComputerName = "ImageDemoPOSH" 
+$VMName = "POSHdemo" #This is what will appear in the portal 
+$ComputerName = "POSHdemo" 
 $OSDiskName = $VMName + "OSDisk"
+$OSDiskName
 $VMSize = "Standard_DS3" 
 
 # What OS and Image to use? Will use this info for Set-AzureRmVMSourceImage. 
