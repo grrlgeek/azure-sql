@@ -8,14 +8,14 @@ Select-AzureRmSubscription -SubscriptionId "7cee9841-6bfc-43bd-b1c7-dfd99f77aa56
 
 # Resource Group info 
 Get-AzureRmResourceGroup | Select ResourceGroupName, Location
-$ResourceGroupName = "Azure20160408"
+$ResourceGroupName = "SQLServers"
 $Region = "centralus"
 # Create resource group (if necessary) 
 #New-AzureRmResourceGroup -Name "sqldatabases" -Location "East US" 
 
 # Storage info 
 Get-AzureRmStorageAccount 
-$StorageName = "azure20160408"
+$StorageName = "sql20143425"
 $StorageType = "Standard_GRS"
 # Create Storage (if necessary) 
 $StorageAccount = New-AzureRmStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageName -Type $StorageType -Location $Region 
@@ -62,15 +62,16 @@ $cred = New-Object System.Management.Automation.PSCredential ($user, $securePass
 # Set up VM object
 $VirtualMachine = New-AzureRmVMConfig -VMName $VMName -VMSize $VMSize
 
-$VirtualMachine = Set-AzureRmVMOperatingSystem -VM $VirtualMachine -Windows -ComputerName $ComputerName -Credential $Cred -ProvisionVMAgent -EnableAutoUpdate
+$VirtualMachine = Set-AzureRmVMOperatingSystem -VM $VirtualMachine -Windows -ComputerName $ComputerName -Credential $Cred -ProvisionVMAgent 
 
 $VirtualMachine = Set-AzureRmVMSourceImage -VM $VirtualMachine -PublisherName $PubName -Offer $OfferName -Skus $Sku -Version "latest"
 
 $VirtualMachine = Add-AzureRmVMNetworkInterface -VM $VirtualMachine -Id $Interface.Id
 
 $OSDiskUri = $StorageAccount.PrimaryEndpoints.Blob.ToString() + "vhds/" + $OSDiskName + ".vhd"
-
-$VirtualMachine = Set-AzureRmVMOSDisk -VM $VirtualMachine -Name $OSDiskName -VhdUri $OSDiskUri -CreateOption FromImage
+$OSDiskUri
+ 
+$VirtualMachine = Set-AzureRmVMOSDisk -VM $VirtualMachine -Name $OSDiskName -VhdUri $OSDiskUri -CreateOption FromImage -DiskEncryptionKeyUrl '' -DiskEncryptionKeyVaultId ''
 
 # Create the VM in Azure
 New-AzureRmVM -ResourceGroupName $ResourceGroupName -Location $Region -VM $VirtualMachine
