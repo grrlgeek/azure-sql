@@ -1,0 +1,55 @@
+http://portal.azure.com 
+
+Azure portal availability chart - https://azure.microsoft.com/en-us/features/azure-portal/availability/ 
+
+Mobile app for iOS and Android - https://azure.microsoft.com/en-us/features/azure-portal/mobile-app/ 
+
+Azure PowerShell instructions: https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps?view=azurermps-4.0.0  
+
+Azure PowerShell documentation: https://docs.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azurermps-4.0.0 
+
+Point-to-site VPN https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-point-to-site-resource-manager-portal 
+ 
+Site-to-site VPN https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-howto-site-to-site-resource-manager-portal 
+
+Express Route https://docs.microsoft.com/en-us/azure/expressroute/expressroute-introduction 
+
+Azure Network Infrastructure - https://channel9.msdn.com/Blogs/Azure-and-the-Modern-Data-Center/Azure-Network-Infrastructure 
+
+Azure enterprise scaffold - prescriptive subscription governance - https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-subscription-governance 
+
+Storage introduction - https://docs.microsoft.com/en-us/azure/storage/common/storage-introduction 
+
+Storage Explorer http://storageexplorer.com/  
+
+DevTest Labs https://azure.microsoft.com/en-us/services/devtest-lab/ 
+
+Performance best practices for SQL Server in Azure Virtual Machines https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sql/virtual-machines-windows-sql-performance
+
+Resize a Windows VM https://docs.microsoft.com/en-us/azure/virtual-machines/windows/resize-vm 
+
+Azure Diagnostics https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/azure-diagnostics#virtual-machines-using-azure-diagnostics 
+
+VM Alert Rules https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/insights-alerts-portal 
+
+Monitoring Azure Resources with SCOM https://blogs.msdn.microsoft.com/nicole_welch/2015/05/monitoring-azure-resources-with-scom/ 
+
+OMS virtual machine extension for Windows https://docs.microsoft.com/en-us/azure/virtual-machines/windows/extensions-oms
+
+Azure Roadmap SQL Database https://azure.microsoft.com/en-us/roadmap/?category=databases 
+
+DTU Calculator http://dtucalculator.azurewebsites.net/ 
+
+Elastic Jobs https://docs.microsoft.com/en-us/azure/sql-database/sql-database-elastic-jobs-getting-started 
+
+Elastic Query https://docs.microsoft.com/en-us/azure/sql-database/sql-database-elastic-query-overview 
+
+Elastic Transactions https://docs.microsoft.com/en-us/azure/sql-database/sql-database-elastic-transactions-overview 
+ 
+ Azure SQL Database planned failover https://docs.microsoft.com/en-us/azure/sql-database/sql-database-geo-replication-portal#initiate-a-failover 
+ 
+ Designing resilient applications for Azure https://docs.microsoft.com/en-us/azure/architecture/resiliency/ 
+ 
+ Designing highly available services using Azure SQL Database https://docs.microsoft.com/en-us/azure/sql-database/sql-database-designing-cloud-solutions-for-disaster-recovery 
+
+Modernize your on-premises applications with SQL Database Managed Instances (video) https://myignite.microsoft.com/videos/53442 
