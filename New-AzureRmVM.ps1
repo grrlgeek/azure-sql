@@ -1,5 +1,8 @@
 ﻿# Create Windows VM in Azure with PowerShell 
 
+# Install AzureRm module 
+Install-Module -Name AzureRM -AllowClobber
+
 # Log in 
 Login-AzureRmAccount
 
