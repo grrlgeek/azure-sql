@@ -1,41 +1,55 @@
 #Create Azure SQL Database with PowerShell 
 
-# Log in 
-Login-AzureRmAccount
+# Sign in 
+# Connect to Azure with a browser sign in token
+Connect-AzAccount
 
 # Choose subscription 
-Select-AzureRmSubscription -SubscriptionId "7cee9841-6bfc-43bd-b1c7-dfd99f77aa56" 
+Get-AzSubscription 
+Select-AzSubscription -SubscriptionId "92aedf6b-f7b7-4e1f-9f23-ed28db0d2085" 
 
 # Resource Group info 
-Get-AzureRmResourceGroup | Select ResourceGroupName, Location 
-$ResourceGroupName = "starwars"
-$Region = "centralus"
-# Create resource group (if necessary) 
-# New-AzureRmResourceGroup -Name $ResourceGroupName -Location $Region 
+Get-AzResourceGroup | Select ResourceGroupName, Location 
+$ResourceGroupName = "SQLserver"
+$Region = "eastus"
 
-# SQL Server info 
-Get-AzureRmSqlServer -ResourceGroupName $ResourceGroupName | Select ServerName, Location
+$ResourceGroupName 
+$Region 
+
+# Create resource group (if necessary) 
+# New-AzResourceGroup -Name $ResourceGroupName -Location $Region 
+
+# SQL server info 
+Get-AzSqlServer -ResourceGroupName $ResourceGroupName | Select ServerName, Location
+$SqlServerName = "borland" 
+$SqlServerName
 # Create SQL Server (if necessary) 
-$SqlServerName = "jakku" 
-# When you run New-AzureRmSqlServer, you're prompted for a username and password 
+# When you run New-AzSqlServer, you're prompted for a username and password 
 # This is NOT your credentials, it's the server's admin username/password 
-New-AzureRmSqlServer -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -Location $Region -ServerVersion "12.0"
+# You can also use -SqlAdministratorCredentials with Get-Credential \# Credentials 
+# New-AzSqlServer -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -Location $Region -WhatIf
 
 # Create firewall rule for IP range 
-Get-AzureRmSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName 
-$FirewallRuleName = "ClientFirewallRule"
-New-AzureRmSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -FirewallRuleName $FirewallRuleName -StartIpAddress "75.184.100.1" -EndIpAddress "75.184.100.255"
+Get-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName | Select FirewallRuleName, StartIpAddress, EndIpAddress
+$FirewallRuleName = "PoshDemoRule"
+New-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -FirewallRuleName $FirewallRuleName -StartIpAddress "65.27.78.1" -EndIpAddress "65.27.78.255"
 
 # Create SQL Database 
-$DatabaseName = "niima" 
-$Edition = "Standard" #Options {None | Premium | Basic | Standard | DataWarehouse | Free}
-$Tier = "S0" #Options {Look in Portal - Basic, S0, S1, S2, S3, P1, P2, P3, P4, P6, P11}
-New-AzureRmSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -DatabaseName $DatabaseName -Edition $Edition -RequestedServiceObjectiveName $Tier
+$DatabaseName = "PoshDemo" 
+# DTU 
+$Edition = "Standard" #Options {None | Basic | Standard | Premium | DataWarehouse | Free  | Stretch | GeneralPurpose | BusinessCritical}
+$Tier = "S0" #Options {Look in Portal - Basic, S0, S1, S2, S3, P1, P2, P3, P4, P6, P11, or v}
+New-AzSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -DatabaseName $DatabaseName -Edition $Edition -RequestedServiceObjectiveName $Tier
+# vCore 
+$Edition = "GeneralPurpose" #Options {None | Basic | Standard | Premium | DataWarehouse | Free  | Stretch | GeneralPurpose | BusinessCritical}
+$Vcore = "2" #Options {Look in Portal - Basic, S0, S1, S2, S3, P1, P2, P3, P4, P6, P11, or vCores }
+$Gen = "Gen4" #Options {Gen4 | Gen5}
+New-AzSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -DatabaseName $DatabaseName -Edition $Edition -Vcore $Vcore -ComputeGeneration "$Gen"
 
 # Clean up 
 # Drop Database 
-Remove-AzureRmSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -DatabaseName $DatabaseName
+Remove-AzSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -DatabaseName $DatabaseName
 # Drop SQL Server 
-Remove-AzureRmSqlServer -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName
+Remove-AzSqlServer -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -WhatIf
 # Drop resource group 
-Remove-AzureRmResourceGroup -ResourceGroupName $ResourceGroupName
+Remove-AzResourceGroup -ResourceGroupName $ResourceGroupName -WhatIf

@@ -6,6 +6,8 @@ Get-ExecutionPolicy
 # Check PowerShell version - need 5.x for Win 7 + 
 $PSVersionTable.PSVersion
 
+Get-Module
+
 # Install module Rm (old module) 
 Install-Module -Name Az -AllowClobber
 
