@@ -19,7 +19,7 @@ New-AzResourceGroup -Name "SQLVMs" -Location "East US" -WhatIf
 
 # Storage info 
 Get-AzStorageAccount 
-$StorageName = "sqlvmsforworkshop"
+$StorageName = "sqlvmsforworkshop2"
 $StorageType = "Standard_LRS"
 # Create Storage (if necessary) 
 $StorageAccount = New-AzStorageAccount -ResourceGroupName $ResourceGroupName -Name $StorageName -Type $StorageType -Location $Region 

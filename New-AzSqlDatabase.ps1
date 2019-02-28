@@ -31,8 +31,8 @@ $SqlServerName
 
 # Create firewall rule for IP range 
 Get-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName | Select FirewallRuleName, StartIpAddress, EndIpAddress
-$FirewallRuleName = "PoshDemoRule"
-New-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -FirewallRuleName $FirewallRuleName -StartIpAddress "65.27.78.1" -EndIpAddress "65.27.78.255"
+$FirewallRuleName = "PoshDemoRule2"
+New-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -FirewallRuleName $FirewallRuleName -StartIpAddress "37.191.97.1" -EndIpAddress "37.191.97.255"
 
 # Create SQL Database 
 $DatabaseName = "PoshDemo" 
