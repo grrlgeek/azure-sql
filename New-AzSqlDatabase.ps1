@@ -6,12 +6,12 @@ Connect-AzAccount
 
 # Choose subscription 
 Get-AzSubscription 
-Select-AzSubscription -SubscriptionId "92aedf6b-f7b7-4e1f-9f23-ed28db0d2085" 
+Select-AzSubscription -SubscriptionId "1193861b-ae28-4d1c-bb80-e0df27454e76" 
 
 # Resource Group info 
 Get-AzResourceGroup | Select ResourceGroupName, Location 
-$ResourceGroupName = "SQLserver"
-$Region = "eastus"
+$ResourceGroupName = "rg-sqldatabase"
+$Region = "eastus2"
 
 $ResourceGroupName 
 $Region 
@@ -21,21 +21,21 @@ $Region
 
 # SQL server info 
 Get-AzSqlServer -ResourceGroupName $ResourceGroupName | Select ServerName, Location
-$SqlServerName = "borland" 
+$SqlServerName = "jeschult-20200218" 
 $SqlServerName
 # Create SQL Server (if necessary) 
 # When you run New-AzSqlServer, you're prompted for a username and password 
 # This is NOT your credentials, it's the server's admin username/password 
 # You can also use -SqlAdministratorCredentials with Get-Credential \# Credentials 
-# New-AzSqlServer -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -Location $Region -WhatIf
+New-AzSqlServer -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -Location $Region #-WhatIf
 
 # Create firewall rule for IP range 
 Get-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName | Select FirewallRuleName, StartIpAddress, EndIpAddress
-$FirewallRuleName = "PoshDemoRule2"
+$FirewallRuleName = "ClientIP"
 New-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -FirewallRuleName $FirewallRuleName -StartIpAddress "37.191.97.1" -EndIpAddress "37.191.97.255"
 
 # Create SQL Database 
-$DatabaseName = "PoshDemo" 
+$DatabaseName = "SSMAdemodb" 
 # DTU 
 $Edition = "Standard" #Options {None | Basic | Standard | Premium | DataWarehouse | Free  | Stretch | GeneralPurpose | BusinessCritical}
 $Tier = "S0" #Options {Look in Portal - Basic, S0, S1, S2, S3, P1, P2, P3, P4, P6, P11, or v}
