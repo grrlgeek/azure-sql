@@ -20,7 +20,7 @@ $Region
 # New-AzResourceGroup -Name $ResourceGroupName -Location $Region 
 
 # SQL server info 
-Get-AzSqlServer -ResourceGroupName $ResourceGroupName | Select ServerName, Location
+Get-AzSqlServer -ResourceGroupName $ResourceGroupName | Select ServerName, Location 
 $SqlServerName = "jeschult-20200218" 
 $SqlServerName
 # Create SQL Server (if necessary) 
@@ -37,13 +37,13 @@ New-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $S
 # Create SQL Database 
 $DatabaseName = "SSMAdemodb" 
 # DTU 
-$Edition = "Standard" #Options {None | Basic | Standard | Premium | DataWarehouse | Free  | Stretch | GeneralPurpose | BusinessCritical}
-$Tier = "S0" #Options {Look in Portal - Basic, S0, S1, S2, S3, P1, P2, P3, P4, P6, P11, or v}
+$Edition = "Standard" #Options { Basic | Standard | Premium }
+$Tier = "S0" #Options {Look in Portal - Basic, S0, S1, S2, S3, P1, P2, P3, P4, P6, P11}
 New-AzSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -DatabaseName $DatabaseName -Edition $Edition -RequestedServiceObjectiveName $Tier
 # vCore 
-$Edition = "GeneralPurpose" #Options {None | Basic | Standard | Premium | DataWarehouse | Free  | Stretch | GeneralPurpose | BusinessCritical}
-$Vcore = "2" #Options {Look in Portal - Basic, S0, S1, S2, S3, P1, P2, P3, P4, P6, P11, or vCores }
-$Gen = "Gen4" #Options {Gen4 | Gen5}
+$Edition = "GeneralPurpose" #Options {GeneralPurpose | BusinessCritical }
+$Vcore = "2" #Options {Look in Portal - vCores }
+$Gen = "Gen4" #Options {Gen5 | Fsv2-series | M-series}
 New-AzSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -DatabaseName $DatabaseName -Edition $Edition -Vcore $Vcore -ComputeGeneration "$Gen"
 
 # Clean up 
