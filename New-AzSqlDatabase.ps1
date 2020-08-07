@@ -21,7 +21,7 @@ $Region
 
 # SQL server info 
 Get-AzSqlServer -ResourceGroupName $ResourceGroupName | Select ServerName, Location 
-$SqlServerName = "jeschult-20200218" 
+$SqlServerName = "jeschult-test" 
 $SqlServerName
 # Create SQL Server (if necessary) 
 # When you run New-AzSqlServer, you're prompted for a username and password 
@@ -32,10 +32,10 @@ New-AzSqlServer -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName
 # Create firewall rule for IP range 
 Get-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName | Select FirewallRuleName, StartIpAddress, EndIpAddress
 $FirewallRuleName = "ClientIP"
-New-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -FirewallRuleName $FirewallRuleName -StartIpAddress "37.191.97.1" -EndIpAddress "37.191.97.255"
+New-AzSqlServerFirewallRule -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -FirewallRuleName $FirewallRuleName -StartIpAddress "71.237.84.0" -EndIpAddress "71.237.84.255"
 
 # Create SQL Database 
-$DatabaseName = "SSMAdemodb" 
+$DatabaseName = "NEOHIOdemodb" 
 # DTU 
 $Edition = "Standard" #Options { Basic | Standard | Premium }
 $Tier = "S0" #Options {Look in Portal - Basic, S0, S1, S2, S3, P1, P2, P3, P4, P6, P11}
@@ -43,7 +43,7 @@ New-AzSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerNa
 # vCore 
 $Edition = "GeneralPurpose" #Options {GeneralPurpose | BusinessCritical }
 $Vcore = "2" #Options {Look in Portal - vCores }
-$Gen = "Gen4" #Options {Gen5 | Fsv2-series | M-series}
+$Gen = "Gen5" #Options {Gen5 | Fsv2-series | M-series}
 New-AzSqlDatabase -ResourceGroupName $ResourceGroupName -ServerName $SqlServerName -DatabaseName $DatabaseName -Edition $Edition -Vcore $Vcore -ComputeGeneration "$Gen"
 
 # Clean up 

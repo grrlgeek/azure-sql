@@ -6,15 +6,15 @@ Connect-AzAccount
 
 # Choose subscription 
 Get-AzSubscription 
-Select-AzSubscription -SubscriptionId "92aedf6b-f7b7-4e1f-9f23-ed28db0d2085" 
+Select-AzSubscription -SubscriptionId "1193861b-ae28-4d1c-bb80-e0df27454e76" 
 
 # Create resource group (if necessary) 
-$rg = "sqldatabases" 
+$rg = "rg-sqldatabase" 
 $region = "eastus"
 New-AzResourceGroup -Name $rg -Location $region
 
 # Create SQL Server (if necessary) 
-$server = "sqlserverjb"
+$server = "jeschult-test"
 New-AzSqlServer -ResourceGroupName $rg -ServerName $server -Location $region 
 
 # Create firewall rule for IP range 
